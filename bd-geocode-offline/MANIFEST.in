@@ -1,0 +1,3 @@
+include bd_geocode_offline/data/*
+include README.md
+include LICENSE

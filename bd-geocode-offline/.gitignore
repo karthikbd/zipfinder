@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+.eggs/
+*.egg-info/
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md
