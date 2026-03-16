@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zipfinder"
+version = "2.0.0"
+authors = [{name = "Karthikeyan Balasundaram"}]
+description = "Offline postal-code / geocode lookup — O(1) & O(log N) indexed, TB/ZB scale ready"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+keywords = [
+    "postal code", "zip code", "geocode", "offline", "geonames",
+    "zipcode lookup", "reverse geocode", "latitude", "longitude",
+    "address lookup", "postcode"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/karthikbd/zipfinder"
+Repository = "https://github.com/karthikbd/zipfinder"
+"Bug Tracker" = "https://github.com/karthikbd/zipfinder/issues"
+Changelog = "https://github.com/karthikbd/zipfinder/blob/main/CHANGELOG.md"
+Documentation = "https://github.com/karthikbd/zipfinder#readme"
+
+[tool.setuptools.packages.find]
+where = ["."]
+
+[tool.setuptools.package-data]
+"zip_finder" = ["data/*", "data/**/*"]

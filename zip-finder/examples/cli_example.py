@@ -3,7 +3,7 @@
 CLI example
 """
 import sys
-from bd_geocode_offline import get, search
+from zip_finder import lookup_zip, search_zip
 
 def main():
     if len(sys.argv) < 2:
@@ -16,7 +16,7 @@ def main():
     if command == "search":
         query = sys.argv[2] if len(sys.argv) > 2 else ""
         country = sys.argv[3] if len(sys.argv) > 3 else None
-        results = search(query, country=country, limit=5)
+        results = search_zip(query, country=country, limit=5)
         print(f"Found {len(results)} results:")
         for r in results:
             print(f"  {r['postal_code']}: {r['city']}, {r['state']}")
@@ -24,7 +24,7 @@ def main():
     else:
         postal_code = command
         country = sys.argv[2] if len(sys.argv) > 2 else None
-        result = get(postal_code, country=country)
+        result = lookup_zip(postal_code, country=country)
         if result:
             print(f"{result['city']}, {result['state']}, {result['country_code']}")
             print(f"Coordinates: {result['latitude']}, {result['longitude']}")

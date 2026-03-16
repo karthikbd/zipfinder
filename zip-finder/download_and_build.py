@@ -1,6 +1,6 @@
 # download_and_build.py
 """
-Script to download GeoNames postal code data and build bd-geocode-offline package
+Script to download GeoNames postal code data and build zip_finder package
 """
 import os
 import sys
@@ -13,12 +13,12 @@ from pathlib import Path
 import warnings
 warnings.filterwarnings('ignore')
 
-class GeoNamesPackageBuilder:
-    """Build bd-geocode-offline package with embedded GeoNames data"""
+class ZipFinderPackageBuilder:
+    """Build zip_finder package with embedded GeoNames data"""
     
     def __init__(self):
-        self.base_dir = Path("bd-geocode-offline")
-        self.source_dir = self.base_dir / "bd_geocode_offline"
+        self.base_dir = Path("zip-finder")
+        self.source_dir = self.base_dir / "zip_finder"
         self.data_dir = self.source_dir / "data"
         self.download_dir = Path("geonames_downloads")
         
@@ -238,7 +238,7 @@ class GeoNamesPackageBuilder:
         print("\nCreating core module...")
         
         core_content = '''"""
-bd_geocode_offline core module
+zip_finder core module
 Offline GeoNames postal code database
 """
 import gzip
@@ -312,7 +312,7 @@ class GeoNamesDatabase:
         self._city_index = {}
         
         # Load data from embedded file
-        data_bytes = pkgutil.get_data('bd_geocode_offline', 'data/geonames_data.jsonl.gz')
+        data_bytes = pkgutil.get_data('zip_finder', 'data/geonames_data.jsonl.gz')
         
         if not data_bytes:
             raise RuntimeError("Could not load embedded GeoNames data")
@@ -631,8 +631,8 @@ __all__ = [
         print("\nCreating __init__.py...")
         
         init_content = '''"""
-bd-geocode-offline
-==================
+zip_finder
+==========
 
 Offline GeoNames postal code database for Python.
 
@@ -640,7 +640,7 @@ This package provides offline access to GeoNames postal code data,
 including city names, states/provinces, and geographic coordinates.
 
 Usage:
-    >>> from bd_geocode_offline import get_postal_code, search_city
+    >>> from zip_finder import get_postal_code, search_city
     >>> 
     >>> # Get postal code information
     >>> result = get_postal_code("94107", country_code="US")
@@ -712,25 +712,25 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # Get package data files
 def get_package_data():
     data_files = []
-    for root, dirs, files in os.walk("bd_geocode_offline/data"):
+    for root, dirs, files in os.walk("zip_finder/data"):
         for file in files:
             if not file.endswith('.py'):
-                rel_path = os.path.relpath(os.path.join(root, file), "bd_geocode_offline")
+                rel_path = os.path.relpath(os.path.join(root, file), "zip_finder")
                 data_files.append(rel_path.replace(os.sep, '/'))
     return data_files
 
 setup(
-    name="bd-geocode-offline",
-    version="1.0.0",
-    author="BD Geocode Team",
+    name="zip-finder",
+    version="2.0.0",
+    author="Karthikeyan Balasundaram",
     author_email="",
     description="Offline GeoNames postal code database for Python",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/bd-geocode-offline",
+    url="https://github.com/yourusername/zip-finder",
     packages=find_packages(),
     package_data={
-        'bd_geocode_offline': get_package_data(),
+        'zip_finder': get_package_data(),
     },
     include_package_data=True,
     classifiers=[
@@ -745,10 +745,10 @@ setup(
     ],
     python_requires=">=3.7",
     install_requires=[],
-    keywords="geonames postal codes zip codes offline database geocoding",
+    keywords="geonames postal codes zip codes offline database geocoding zip_finder",
     project_urls={
-        "Bug Reports": "https://github.com/yourusername/bd-geocode-offline/issues",
-        "Source": "https://github.com/yourusername/bd-geocode-offline",
+        "Bug Reports": "https://github.com/yourusername/zip-finder/issues",
+        "Source": "https://github.com/yourusername/zip-finder",
     },
 )
 '''
@@ -767,12 +767,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "bd-geocode-offline"
-version = "1.0.0"
-authors = [
-    {name = "BD Geocode Team"},
-]
-description = "Offline GeoNames postal code database for Python"
+name = "zip-finder"
 readme = "README.md"
 requires-python = ">=3.7"
 classifiers = [
@@ -784,8 +779,8 @@ classifiers = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/yourusername/bd-geocode-offline"
-"Bug Tracker" = "https://github.com/yourusername/bd-geocode-offline/issues"
+"Homepage" = "https://github.com/yourusername/zip-finder"
+"Bug Tracker" = "https://github.com/yourusername/zip-finder/issues"
 '''
         
         with open(self.base_dir / "pyproject.toml", "w") as f:
@@ -797,21 +792,22 @@ classifiers = [
         """Create README.md file"""
         print("\nCreating README.md...")
         
-        readme_content = '''# bd-geocode-offline
+        readme_content = '''# zip_finder
 
-Complete offline GeoNames postal code database for Python.
+Complete offline GeoNames postal code / geocode database for Python.
 
 ## Features
 
 - 🌍 **Complete coverage** - Postal codes for 200+ countries
 - 📦 **Fully offline** - No internet connection required
-- ⚡ **Fast lookups** - Optimized indexes for country and postal code searches
-- 🗺️ **Spatial search** - Find nearby postal codes by coordinates
-- 📊 **Multiple search methods** - By postal code, city, country, or coordinates
-- 🔍 **Flexible matching** - Exact or partial matching options
+- ⚡ **O(1) lookups** - Hash-indexed by country+zip and zip-only
+- 🗺️ **Spatial search** - Geo-grid bucketed radius search (O(C + K·log K))
+- 📊 **Multiple search methods** - By postal code, city, or coordinates
+- 🔍 **Flexible matching** - Exact or partial (bisect prefix search)
 - 🚀 **Zero dependencies** - Only Python standard library required
+- 💾 **TB/ZB scale** - SQLite streaming mode for datasets exceeding RAM
 
 ## Installation
 
 ```bash
-pip install bd-geocode-offline'''
+pip install zip-finder'''

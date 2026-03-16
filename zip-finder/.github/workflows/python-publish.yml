@@ -1,0 +1,41 @@
+﻿name: Publish zipfinder to PyPI
+
+on:
+  release:
+    types: [published]
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install package in editable mode
+        run: pip install -e .
+      - name: Run test suite
+        run: python -m pytest tests/ -v --tb=short
+
+  publish:
+    needs: test
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write   # required for Trusted Publishing (OIDC)
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build distribution
+        run: |
+          pip install --upgrade build
+          python -m build
+      - name: Publish to PyPI via Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@release/v1
+        # No PYPI_API_TOKEN needed  uses OIDC Trusted Publishing.
+        # Configure at: https://pypi.org/manage/project/zipfinder/settings/publishing/

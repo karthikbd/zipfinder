@@ -1,0 +1,35 @@
+
+
+#Ignore vscode AI rules
+.github\instructions\codacy.instructions.md
+
+
+# Large GeoNames raw data files
+geonames_complete_data/
+geonames_processed/
+
+# Other packages in this workspace (separate repos)
+bd-streetmap-offline/
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.eggs/
+develop-eggs/
+
+# Environment files
+Pipfile
+Pipfile.lock
+.env
+.venv/
+
+# IDE
+.vscode/settings.json

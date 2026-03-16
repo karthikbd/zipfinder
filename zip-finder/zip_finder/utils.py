@@ -1,5 +1,5 @@
 """
-Utility functions
+zip_finder.utils — shared helper functions
 """
 from typing import Dict, List
 import math

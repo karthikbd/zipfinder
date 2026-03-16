@@ -7,7 +7,7 @@ import sys
 
 def build():
     """Build the package"""
-    print("Building bd-geocode-offline...")
+    print("Building zip_finder...")
     subprocess.run([sys.executable, "-m", "build"])
     print("✓ Build complete")
     print("\nTo upload to PyPI:")

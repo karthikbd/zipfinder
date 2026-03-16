@@ -1,5 +1,5 @@
 """
-GeoNames data files for bd-geocode-offline package.
+GeoNames data files for zip_finder package.
 """
 
 DATA_FILES = [

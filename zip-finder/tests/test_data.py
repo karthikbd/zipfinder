@@ -7,7 +7,7 @@ from pathlib import Path
 
 def test_data_files():
     """Verify data files exist and are valid"""
-    data_dir = Path("bd_geocode_offline/data")
+    data_dir = Path("zip_finder/data")
     
     # Check required files
     required = ['geonames_data.jsonl.gz', 'metadata.json']
