@@ -11,7 +11,7 @@ def get_package_data():
 
 setup(
     name="zipfinder",
-    version="2.0.0",
+    version="2.0.1",
     packages=find_packages(exclude=[]),
     package_data={"zip_finder": get_package_data()},
     include_package_data=True,

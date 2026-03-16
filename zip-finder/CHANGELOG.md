@@ -2,6 +2,19 @@
 
 All notable changes to `zipfinder` are documented here.
 
+## [2.0.1] - 2026-03-16
+
+### Fixed
+- `find_nearby_zips()` now accepts an optional `country` parameter to filter results by ISO country code
+- Removed stale `GeoNamesDatabase` class alias — use `ZipFinderDatabase` directly
+- Internal class in `download_and_build.py` renamed from `GeoNamesDatabase` to `ZipFinderDatabase`
+
+### Improved
+- `metadata.json` now correctly reports `package_name: zipfinder, version: 2.0.1`
+- README cleaned up — removed legacy migration guide, features list updated
+
+---
+
 ## [2.0.0] - 2026-03-16  *(Renamed from bd-geocode-offline)*
 
 ### Breaking changes (backward-compatible aliases provided)
