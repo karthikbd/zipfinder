@@ -1,0 +1,6 @@
+include address_finder/_libs/*.so
+include address_finder/_libs/*.dylib
+include address_finder/_libs/*.dll
+include address_finder/_data.tar.zst
+recursive-include scripts *
+include README.md

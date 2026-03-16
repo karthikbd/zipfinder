@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "address-finder"
+version = "1.0.0"
+description = "Self-contained offline address parser powered by libpostal (global model)"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+dependencies = [
+    "zstandard>=0.21",
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "dawgdic"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["address_finder*"]
+
+[tool.setuptools.package-data]
+address_finder = [
+    "_libs/*.so",
+    "_libs/*.dylib",
+    "_libs/*.dll",
+    "_data.tar.zst",
+]
