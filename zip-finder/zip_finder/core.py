@@ -131,7 +131,6 @@ class ZipFinderDatabase:
         Tries pre-built pickle indexes first (fastest start-up);
         falls back to streaming parse of the compressed JSONL source.
         """
-        print("ZipFinder: loading database into memory …")
         try:
             self._load_from_pickles()
         except Exception:
@@ -143,8 +142,6 @@ class ZipFinderDatabase:
         # on the first search() / find_nearby() call to keep startup fast.
 
         n = sum(len(v) for v in self._country_index.values())
-        print(f"ZipFinder: ready — {n:,} records, "
-              f"{len(self._country_index)} countries.")
 
     def _load_from_pickles(self) -> None:
         """Load pre-built primary indexes from compressed pickles.  O(N)."""
@@ -160,7 +157,6 @@ class ZipFinderDatabase:
         Memory : records stored in country_index; postal_index holds refs.
         Time   : O(N) — single pass through source file.
         """
-        print("ZipFinder: building indexes from JSONL (streaming) …")
         country_idx: Dict[str, List[Dict]] = defaultdict(list)
         postal_idx:  Dict[str, Dict]       = {}
 
@@ -280,7 +276,6 @@ class ZipFinderDatabase:
         idx_grid     : (lat_bucket, lon_bucket)     → O(1) spatial cell
         city_fts     : FTS5 virtual table on city   → O(log N) substring
         """
-        print("ZipFinder: streaming data into SQLite (on-disk mode) …")
         tmp = tempfile.NamedTemporaryFile(
             suffix=".db", delete=False, prefix="zip_finder_"
         )
@@ -367,7 +362,6 @@ class ZipFinderDatabase:
         n = sqlite3.connect(self._sqlite_path).execute(
             "SELECT COUNT(*) FROM records"
         ).fetchone()[0]
-        print(f"ZipFinder (SQLite): ready — {n:,} records.")
 
     def _sqlite_con(self) -> sqlite3.Connection:
         con = sqlite3.connect(self._sqlite_path)
@@ -466,7 +460,6 @@ class ZipFinderDatabase:
 
         # Lazy-build sorted prefix indexes on first search_zip() call
         if self._postal_sorted is None:
-            print("ZipFinder: building prefix indexes …")
             self._build_sorted_prefix_indexes()
 
         q = query.lower()
@@ -528,7 +521,6 @@ class ZipFinderDatabase:
 
         # Lazy-build geo-grid on first find_nearby_zips() call
         if self._geo_grid is None:
-            print("ZipFinder: building geo-grid …")
             self._build_geo_grid()
 
         # Bounding-box in degrees
