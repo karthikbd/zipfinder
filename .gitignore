@@ -10,6 +10,7 @@ geonames_processed/
 
 # Other packages in this workspace (separate repos)
 bd-streetmap-offline/
+address-finder/
 
 # Build artifacts
 dist/
