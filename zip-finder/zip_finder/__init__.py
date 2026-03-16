@@ -1,7 +1,7 @@
 """
 zip_finder — offline postal-code / geocode lookup
 =================================================
-Complete GeoNames database.  Works 100 %% offline — no internet required.
+Complete offline postal-code database.  Works 100 %% offline — no internet required.
 
 Quick start
 -----------
@@ -28,7 +28,7 @@ from .core import (
     list_countries,
     get_database,
     ZipFinderDatabase,
-    # Backward-compatible aliases (old names still work)
+    # Backward-compatible function aliases (old names still work)
     get,
     get_all,
     search,
@@ -36,9 +36,6 @@ from .core import (
     get_stats,
     get_countries,
 )
-
-# Backward-compatible class alias
-GeoNamesDatabase = ZipFinderDatabase
 
 __version__ = "2.0.0"
 __all__ = [
@@ -58,5 +55,4 @@ __all__ = [
     "find_nearby",
     "get_stats",
     "get_countries",
-    "GeoNamesDatabase",
 ]

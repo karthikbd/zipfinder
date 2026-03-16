@@ -1,5 +1,5 @@
 """
-GeoNames data files for zip_finder package.
+Data files for zip_finder package.
 """
 
 DATA_FILES = [

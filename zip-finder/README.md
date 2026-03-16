@@ -5,33 +5,23 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub stars](https://img.shields.io/github/stars/karthikbd/zipfinder?style=social)](https://github.com/karthikbd/zipfinder)
 
-> **Upgraded from `bd-geocode-offline`?** See the [migration guide](#migrating-from-bd-geocode-offline) below.
-
-Complete offline GeoNames postal-code / geocode database for Python.
+Complete offline postal-code / geocode database for Python.
 **Works 100 % offline  no internet connection required.**
 
 ## Features
 
--  **1.8 million records**  121 countries, complete GeoNames dataset
--  **O(1) lookups**  hash-indexed, constant time regardless of dataset size
--  **O(log N) prefix search**  bisect-based, no full-table scans ever
--  **Spatial radius search**  geo-grid index, O(C + Klog K)
--  **TB / ZB scale**  optional SQLite mode for datasets that exceed RAM
--  **Zero dependencies**  Python standard library only
--  **Fully embedded**  all data ships inside the package
--  **Backward compatible**  old `bd-geocode-offline` imports still work
+-  **1.8 million records** — 121 countries, worldwide postal-code dataset
+-  **O(1) lookups** — hash-indexed, constant time regardless of dataset size
+-  **O(log N) prefix search** — bisect-based, no full-table scans ever
+-  **Spatial radius search** — geo-grid index, O(C + K·log K)
+-  **TB / ZB scale** — optional SQLite mode for datasets that exceed RAM
+-  **Zero dependencies** — Python standard library only
+-  **Fully embedded** — all data ships inside the package
 
 ## Installation
 
 ```bash
 pip install zipfinder
-```
-
-To upgrade from the old package:
-
-```bash
-pip install zipfinder
-pip uninstall bd-geocode-offline   # optional cleanup
 ```
 
 ## Quick Start
@@ -120,31 +110,19 @@ db = get_database(use_sqlite=True)
 record = db.lookup_zip("94107", country="US")
 ```
 
-## Migrating from bd-geocode-offline
+## Function Name Reference
 
-`zipfinder 2.0.0` is a drop-in upgrade. Old function names still work as
-deprecated aliases, so **no code change is required immediately**.
-However, the new names are recommended:
+All function names and their descriptions:
 
-| Old name (still works) | New name (recommended) |
-|---|---|
-| `get(code, country)` | `lookup_zip(code, country)` |
-| `get_all(code)` | `lookup_all_zips(code)` |
-| `search(query)` | `search_zip(query)` |
-| `find_nearby(lat, lon)` | `find_nearby_zips(lat, lon)` |
-| `get_stats()` | `get_db_stats()` |
-| `get_countries()` | `list_countries()` |
-
-```bash
-# Install the new package
-pip install zipfinder
-
-# Old import path still works (backward-compatible alias)
-from zip_finder import get
-
-# New recommended API
-from zip_finder import lookup_zip
-```
+| Function | Description | Time Complexity |
+|---|---|---|
+| `lookup_zip(code, country=None)` | Single zip lookup, returns one record or `None` | **O(1)** |
+| `lookup_all_zips(code, country=None)` | All records for a zip across countries | **O(1)** |
+| `search_zip(query, country=None, limit=10)` | Prefix search by zip or city name | **O(log N + K)** |
+| `find_nearby_zips(lat, lon, radius_km=10, limit=10)` | Radius search by coordinates | **O(C + K\u00b7log K)** |
+| `get_db_stats()` | Total records and country count | **O(1)** |
+| `list_countries()` | Sorted list of all ISO-3166 country codes | **O(1)** |
+| `get_database(use_sqlite=False)` | Access the raw database singleton |  |
 
 ## Contributing
 
@@ -156,7 +134,3 @@ from zip_finder import lookup_zip
 ## License
 
 MIT  [Karthikeyan Balasundaram](https://github.com/karthikbd)
-
----
-
-*Previously published as [bd-geocode-offline](https://pypi.org/project/bd-geocode-offline/) 1.0.0.*

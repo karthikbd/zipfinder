@@ -279,9 +279,9 @@ class PostalCodeRecord:
             'longitude': self.longitude
         }
 
-class GeoNamesDatabase:
+class ZipFinderDatabase:
     """
-    Main GeoNames postal code database.
+    Main ZipFinder postal code database.
     Loads data from embedded compressed JSONL file.
     """
     
@@ -294,7 +294,7 @@ class GeoNamesDatabase:
     def __new__(cls):
         """Singleton pattern"""
         if cls._instance is None:
-            cls._instance = super(GeoNamesDatabase, cls).__new__(cls)
+            cls._instance = super(ZipFinderDatabase, cls).__new__(cls)
         return cls._instance
     
     def __init__(self):
@@ -304,7 +304,7 @@ class GeoNamesDatabase:
     
     def _load_data(self):
         """Load data from embedded file"""
-        print("Loading GeoNames postal code database...")
+        print("Loading ZipFinder postal code database...")
         
         self._data = []
         self._country_index = {}
@@ -315,7 +315,7 @@ class GeoNamesDatabase:
         data_bytes = pkgutil.get_data('zip_finder', 'data/geonames_data.jsonl.gz')
         
         if not data_bytes:
-            raise RuntimeError("Could not load embedded GeoNames data")
+            raise RuntimeError("Could not load embedded ZipFinder data")
         
         # Parse compressed JSONL
         for line in gzip.decompress(data_bytes).decode('utf-8').splitlines():
@@ -509,11 +509,11 @@ class GeoNamesDatabase:
 # Singleton instance
 _db_instance = None
 
-def get_database() -> GeoNamesDatabase:
+def get_database() -> ZipFinderDatabase:
     """Get singleton database instance"""
     global _db_instance
     if _db_instance is None:
-        _db_instance = GeoNamesDatabase()
+        _db_instance = ZipFinderDatabase()
     return _db_instance
 
 # Convenience functions
@@ -616,7 +616,7 @@ __all__ = [
     'find_nearby',
     'get_stats',
     'get_countries',
-    'GeoNamesDatabase',
+    'ZipFinderDatabase',
     'PostalCodeRecord'
 ]
 '''
@@ -667,7 +667,7 @@ from .core import (
     find_nearby,
     get_stats,
     get_countries,
-    GeoNamesDatabase,
+    ZipFinderDatabase,
     PostalCodeRecord
 )
 
@@ -683,7 +683,7 @@ __all__ = [
     'find_nearby',
     'get_stats',
     'get_countries',
-    'GeoNamesDatabase',
+    'ZipFinderDatabase',
     'PostalCodeRecord'
 ]
 '''
