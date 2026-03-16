@@ -501,9 +501,16 @@ class ZipFinderDatabase:
 
     def find_nearby_zips(self, latitude: float, longitude: float,
                     radius_km: float = 10.0,
-                    limit: int = 10) -> List[Dict]:
+                    limit: int = 10,
+                    country: str = None) -> List[Dict]:
         """
         Find postal codes within *radius_km* kilometres of a coordinate.
+
+        Parameters
+        ----------
+        country : str, optional
+            ISO 3166-1 alpha-2 country code to restrict results (e.g. 'US').
+            If None, results from all countries are returned.
 
         Complexity: O(C + K·log K)
           C = total records in candidate grid cells.
@@ -516,6 +523,8 @@ class ZipFinderDatabase:
         if self._use_sqlite:
             return self._sqlite_find_nearby(latitude, longitude,
                                             radius_km, limit)
+
+        country_filter = country.upper() if country else None
 
         # Lazy-build geo-grid on first find_nearby_zips() call
         if self._geo_grid is None:
@@ -539,6 +548,8 @@ class ZipFinderDatabase:
                 if cell is None:
                     continue
                 for rec in cell:
+                    if country_filter and rec.get("country_code") != country_filter:
+                        continue
                     try:
                         d = self._haversine(
                             latitude, longitude,
@@ -787,9 +798,15 @@ search = search_zip
 
 
 def find_nearby_zips(latitude: float, longitude: float,
-                     radius_km: float = 10.0, limit: int = 10) -> List[Dict]:
+                     radius_km: float = 10.0, limit: int = 10,
+                     country: str = None) -> List[Dict]:
     """
     Find all zip codes within *radius_km* km of a coordinate.  O(C + K·log K).
+
+    Parameters
+    ----------
+    country : str, optional
+        ISO 3166-1 alpha-2 country code to restrict results (e.g. 'US').
 
     Returns results sorted by ascending distance.
     Each result dict includes an extra ``"distance_km"`` field.
@@ -797,8 +814,9 @@ def find_nearby_zips(latitude: float, longitude: float,
     Example
     -------
     >>> find_nearby_zips(37.7749, -122.4194, radius_km=10)
+    >>> find_nearby_zips(40.7128, -74.0060, radius_km=5, country='US')
     """
-    return get_database().find_nearby_zips(latitude, longitude, radius_km, limit)
+    return get_database().find_nearby_zips(latitude, longitude, radius_km, limit, country)
 
 # backward-compatible alias
 find_nearby = find_nearby_zips

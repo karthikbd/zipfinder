@@ -1,6 +1,6 @@
 {
-  "package_name": "bd-geocode-offline",
-  "version": "1.0.0",
+  "package_name": "zipfinder",
+  "version": "2.0.0",
   "data_source": "GeoNames",
   "data_url": "https://download.geonames.org/export/zip/",
   "download_date": "2025-12-30T16:57:01.287557",
