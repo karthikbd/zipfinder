@@ -9,5 +9,16 @@ dist/
 .eggs/
 *.egg-info/
 
-#Ignore vscode AI rules
-.github\instructions\codacy.instructions.md
+# Codacy VS Code AI instructions (machine-local)
+.github/instructions/codacy.instructions.md
+
+# Virtual environment (if created inside this folder)
+.venv/
+venv/
+env/
+.env
+
+# Test / editor artefacts
+.pytest_cache/
+*.log
+.vscode/settings.json

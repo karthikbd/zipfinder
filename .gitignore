@@ -1,23 +1,19 @@
+# Workspace-level .gitignore  (package_build mono-repo)
 
+# Codacy VS Code AI instructions (machine-local, not committed)
+.github/instructions/codacy.instructions.md
 
-#Ignore vscode AI rules
-.github\instructions\codacy.instructions.md
+# Corporate TLS certificate (sensitive, machine-local)
+corp-root.crt
 
-
-# Large GeoNames raw data files
+# Large GeoNames raw data files downloaded locally for zip-finder builds
 geonames_complete_data/
 geonames_processed/
 
-# Other packages in this workspace (separate repos)
+# bd-streetmap-offline is a separate upstream repo checked out here
 bd-streetmap-offline/
-address-finder/
 
-# Build artifacts
-dist/
-build/
-*.egg-info/
-
-# Python cache
+# Python cache / compiled files
 __pycache__/
 *.pyc
 *.pyo
@@ -26,11 +22,11 @@ __pycache__/
 .eggs/
 develop-eggs/
 
-# Environment files
+# Root-level virtual environment and lock files
 Pipfile
 Pipfile.lock
 .env
 .venv/
 
-# IDE
+# IDE workspace settings (machine-local)
 .vscode/settings.json
