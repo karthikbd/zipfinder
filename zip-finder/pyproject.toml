@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "zipfinder"
-version = "2.0.2"
+version = "2.0.3"
 authors = [{name = "Karthikeyan Balasundaram"}]
 description = "Offline postal-code / geocode lookup — O(1) & O(log N) indexed, TB/ZB scale ready"
 readme = "README.md"
