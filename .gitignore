@@ -1,5 +1,12 @@
 # Workspace-level .gitignore  (package_build mono-repo)
 
+# address-finder is a separate git repo nested here — tracked independently
+address-finder/
+
+# Codacy CLI runtime directories (machine-local: binary, logs, tool caches)
+.codacy/
+zip-finder/.codacy/
+
 # Codacy VS Code AI instructions (machine-local, not committed)
 .github/instructions/codacy.instructions.md
 
