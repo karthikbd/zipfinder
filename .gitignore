@@ -1,0 +1,24 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+build/
+develop-eggs/
+dist/
+.eggs/
+*.egg-info/
+
+# Codacy VS Code AI instructions (machine-local)
+.github/instructions/codacy.instructions.md
+
+# Virtual environment (if created inside this folder)
+.venv/
+venv/
+env/
+.env
+
+# Test / editor artefacts
+.pytest_cache/
+*.log
+.vscode/settings.json
