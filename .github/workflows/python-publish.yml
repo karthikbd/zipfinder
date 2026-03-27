@@ -1,4 +1,4 @@
-﻿name: Publish zipfinder to PyPI
+name: Publish zipfinder to PyPI
 
 on:
   release:
@@ -16,7 +16,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
@@ -33,7 +33,7 @@ jobs:
       id-token: write   # required for Trusted Publishing (OIDC)
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
